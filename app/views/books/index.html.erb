@@ -1,0 +1,9 @@
+<h1>BookSearch</h1>
+<p>Here you can see a list of books</p>
+<% @books.each do |book| %>
+  <h3><%= book.title %></h3>
+  <ul>
+    <li><b>Description:</b> <%=book.description %></li>
+    <li><b>Author name:</b> <%= book.author_name %></li>
+  </ul>
+<% end %>
