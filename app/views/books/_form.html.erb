@@ -1,0 +1,17 @@
+<span><%= flash[:alert] ? flash[:alert] : '' %></span>
+
+<%= form_for @book do |form| %>
+  <p><%= form.label :title %><br>
+  <%= form.text_field :title %></p>
+
+  <p><%= form.label :author_name %><br>
+  <%= form.text_field :author_name %></p>
+
+  <p><%= form.label :image, 'Image URL' %><br>
+  <%= form.text_field :image %></p>
+  
+  <p><%= form.label :description %><br>
+  <%= form.text_area :description %></p>
+
+  <%= form.submit 'Save' %>
+<% end %>
