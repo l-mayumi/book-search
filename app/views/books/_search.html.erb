@@ -1,0 +1,38 @@
+<form id="search-form">
+  <label for="key">Search</label>
+  <input type="text" id="key" name="key">
+
+  <input type="radio" id="text" name="filter" value="text" checked="checked" />
+  <label for="text">Title/Description</label>
+  <input type="radio" id="author" name="filter" value="author" />
+  <label for="author">Author</label>
+
+  <input type="submit" value="Go" onclick="search()">
+</form>
+
+
+<script>
+  function search() {
+    const form = new FormData(document.getElementById('search-form'));
+    let key = form.get('key');
+    let filter = form.get('filter');
+
+    fetch(`/search?q=${key}&filter=${filter}`)
+      .then(function(response) { return response.json() })
+      .then(function(data) {
+        let searchResults = ''
+        data.forEach(function(book) {
+          searchResults = searchResults.concat(`
+            <img src="${book.image}" class="thumb" />
+            <h3>${book.title}</h3>
+            <ul>
+              <li><b>Description:</b> ${book.description}</li>
+              <li><b>Author name:</b> ${book.author_name}</li>
+            </ul>
+          `)
+        })
+        document.getElementById('book-list').innerHTML = searchResults;
+      })
+    event.preventDefault()
+  }
+</script>

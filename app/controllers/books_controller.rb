@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :authenticate_user!, except: :index
+  before_action :authenticate_user!, except: %i[index search]
 
   def index
     @books = Book.all
@@ -46,9 +46,19 @@ class BooksController < ApplicationController
     redirect_to :dashboard
   end
 
+  def search
+    books = filter_by_author? ? Book.find_author(params[:q]) : Book.find_text(params[:q])
+
+    render json: books
+  end
+
   private
 
   def book_params
     params.require(:book).permit(:title, :description, :author_name, :image)
+  end
+
+  def filter_by_author?
+    params[:filter] == 'author'
   end
 end
