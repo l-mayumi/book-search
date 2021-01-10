@@ -1,6 +1,11 @@
 <h1>BookSearch</h1>
 <p>Here you can see a list of books</p>
 <% @books.each do |book| %>
+  <% if book.image %>
+    <img src="<%= book.image %>" class="thumb" />
+  <% else %>
+    <%= image_tag('book.png', class: 'thumb') %>
+  <% end %>
   <h3><%= book.title %></h3>
   <ul>
     <li><b>Description:</b> <%=book.description %></li>
