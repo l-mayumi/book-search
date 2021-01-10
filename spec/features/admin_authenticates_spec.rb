@@ -24,7 +24,7 @@ feature 'Admin visits homepage and signs in' do
     fill_in 'Password', with: 'password'
     click_on 'Log in'
 
-    expect(page).not_to have_css('a', text: 'Sign in')
+    expect(page).to have_css('a', text: 'Sign in')
   end
 
   scenario 'and logs out' do
