@@ -2,7 +2,7 @@
 
 <% @books.each do |book| %>
   <h3><%= book.title %></h3>
-  <%= link_to 'Edit', edit_book_path(book) %>
+  <%= link_to 'Edit', edit_book_path(book) %> | <%= link_to 'Remove', remove_book_path(book) %>
   <ul>
     <li><b>Description:</b> <%=book.description %></li>
     <li><b>Author name:</b> <%= book.author_name %></li>

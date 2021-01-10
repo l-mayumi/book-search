@@ -35,6 +35,15 @@ class BooksController < ApplicationController
     end
   end
 
+  def remove
+    @book = Book.find(params[:id])
+  end
+
+  def destroy
+    Book.destroy(params[:id])
+    redirect_to :dashboard
+  end
+
   private
 
   def book_params
