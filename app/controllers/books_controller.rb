@@ -2,11 +2,11 @@ class BooksController < ApplicationController
   before_action :authenticate_user!, except: %i[index search]
 
   def index
-    @books = Book.all
+    @books = Book.all.sort_by(&:title)
   end
 
   def dashboard
-    @books = Book.all
+    @books = Book.all.sort_by(&:title)
   end
 
   def new
