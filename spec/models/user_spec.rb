@@ -2,22 +2,25 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   context 'Tries to create an user' do
-    it 'successfully' do
-      user = User.create(email: 'user@email.com', password: 'a1b2c3')
+    let(:user) { User.last }
 
-      expect(User.last).to eq(user)
+    it 'successfully' do
+      params = { email: 'user@email.com', password: 'a1b2c3' }
+
+      expect { User.create(params) }.to change { User.count }.by(1)
+      expect(user.email).to eq(params[:email])
     end
 
     it 'and does not provide a password' do
-      User.create(email: 'user@email.com')
+      imcomplete_params = { email: 'user@email.com' }
 
-      expect(User.count).to eq(0)
+      expect { User.create(imcomplete_params) }.to change { User.count }.by(0)
     end
 
     it 'and provides an invalid password' do
-      User.create(email: 'user@email.com', password: 'test')
+      invalid_params = { email: 'user@email.com', password: 'test' }
 
-      expect(User.count).to eq(0)
+      expect { User.create(invalid_params) }.to change { User.count }.by(0)
     end
   end
 end

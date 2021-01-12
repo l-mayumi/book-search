@@ -16,7 +16,7 @@ feature 'Admin removes book' do
 
   scenario 'successfully' do
     click_on 'Dashboard'
-    click_on 'Remove'
+    click_on 'Remove', match: :first
 
     click_on 'Yes'
 
@@ -26,7 +26,7 @@ feature 'Admin removes book' do
 
   scenario 'but cancels' do
     click_on 'Dashboard'
-    click_on 'Remove'
+    click_on 'Remove', match: :first
 
     click_on 'Cancel'
 

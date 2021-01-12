@@ -14,7 +14,7 @@ feature 'Admin updates book' do
 
   scenario 'successfully' do
     click_on 'Dashboard'
-    click_on 'Edit'
+    click_on 'Edit', match: :first
 
     fill_in 'Title', with: 'A new new book title'
     click_on 'Save'
@@ -24,7 +24,7 @@ feature 'Admin updates book' do
 
   scenario 'but does not fill in all obligatory fields' do
     click_on 'Dashboard'
-    click_on 'Edit'
+    click_on 'Edit', match: :first
 
     fill_in 'Title', with: ''
     click_on 'Save'

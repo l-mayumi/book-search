@@ -1,13 +1,11 @@
 class BooksController < ApplicationController
   before_action :authenticate_user!, except: %i[index search]
+  before_action :find_books, only: %i[index dashboard]
+  before_action :find_book, only: %i[edit update remove]
 
-  def index
-    @books = Book.all.sort_by(&:title)
-  end
+  def index; end
 
-  def dashboard
-    @books = Book.all.sort_by(&:title)
-  end
+  def dashboard; end
 
   def new
     @book = Book.new
@@ -23,12 +21,9 @@ class BooksController < ApplicationController
     end
   end
 
-  def edit
-    @book = Book.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @book = Book.find(params[:id])
     if @book.update(book_params)
       redirect_to dashboard_path
     else
@@ -37,9 +32,7 @@ class BooksController < ApplicationController
     end
   end
 
-  def remove
-    @book = Book.find(params[:id])
-  end
+  def remove; end
 
   def destroy
     Book.destroy(params[:id])
@@ -47,12 +40,21 @@ class BooksController < ApplicationController
   end
 
   def search
-    books = filter_by_author? ? Book.find_author(params[:q]) : Book.find_text(params[:q])
+    key = params[:q]
+    books = filter_by_author? ? Book.find_author(key) : Book.find_text(key)
 
-    render json: books
+    render json: books.sort_by(&:title)
   end
 
   private
+
+  def find_books
+    @books = Book.all.sort_by(&:title)
+  end
+
+  def find_book
+    @book = Book.find(params[:id])
+  end
 
   def book_params
     params.require(:book).permit(:title, :description, :author_name, :image)

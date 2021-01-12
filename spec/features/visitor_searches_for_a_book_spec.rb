@@ -1,5 +1,7 @@
 require 'rails_helper'
 
+# This spec is not working because Capybara/Selenium are not running js effects,
+# despite turning on 'js = true'.
 xfeature 'Visitor searches for a book' do
   before do
     Book.create(title: 'Alice in Wonderland',
