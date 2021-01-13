@@ -11,31 +11,22 @@
   </head>
 
   <body>
-    <nav class="teal lighten-2" role="navigation">
+    <nav class="nav-extended teal lighten-2" role="navigation">
       <div class="nav-wrapper container">
         <a id="logo-container" href="<%= root_path %>" class="brand-logo center"><i class="material-icons">library_books</i> BookSearch</a>
         <ul class="right hide-on-med-and-down">
-          <li><%= link_to 'Home', root_path %></li>
-          <% if user_signed_in? %>
-            <li><%= link_to 'Dashboard', dashboard_path %></li>
-            <li><%= link_to 'Log out', destroy_user_session_path, method: 'delete' %></li>
-          <% else %>
-            <li><%= link_to 'Sign in', new_user_session_path %></li>
-          <% end %>
+          <%= render 'layouts/links' %>
         </ul>
-
-        <ul id="nav-mobile" class="sidenav">
-          <li><%= link_to 'Home', root_path %></li>
-          <% if user_signed_in? %>
-            <li><%= link_to 'Dashboard', dashboard_path %></li>
-            <li><%= link_to 'Log out', destroy_user_session_path, method: 'delete' %></li>
-          <% else %>
-            <li><%= link_to 'Sign in', new_user_session_path %></li>
-          <% end %>
-        </ul>
-        <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      </div>
+      <div class="nav-content hide-on-large-only">
+        <div class="container">
+          <ul>
+            <%= render 'layouts/links' %>
+          </ul>
+        </div>
       </div>
     </nav>
+
     <main>
     <div class="section no-pad-bot" id="index-banner">
       <div class="container row">
@@ -58,21 +49,17 @@
             </p>
           </div>
           <div class="col l3 s12">
-            <h5 class="white-text">Links</h5>
+            <h5 class="white-text">GitHub</h5>
             <ul>
-              <li><a class="white-text" href="#!">Link 1</a></li>
-              <li><a class="white-text" href="#!">Link 2</a></li>
-              <li><a class="white-text" href="#!">Link 3</a></li>
-              <li><a class="white-text" href="#!">Link 4</a></li>
+              <li><a class="white-text" href="https://github.com/l-mayumi/book-search">Repository</a></li>
+              <li><a class="white-text" href="https://github.com/l-mayumi">Profile</a></li>
             </ul>
           </div>
           <div class="col l3 s12">
             <h5 class="white-text">Connect</h5>
             <ul>
-              <li><a class="white-text" href="#!">Link 1</a></li>
-              <li><a class="white-text" href="#!">Link 2</a></li>
-              <li><a class="white-text" href="#!">Link 3</a></li>
-              <li><a class="white-text" href="#!">Link 4</a></li>
+              <li><a class="white-text" href="https://twitter.com/_may1i">Twitter</a></li>
+              <li><a class="white-text" href="https://www.linkedin.com/in/leticiamhashizume/">Linkedin</a></li>
             </ul>
           </div>
         </div>
