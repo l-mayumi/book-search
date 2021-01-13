@@ -68,6 +68,7 @@ class BooksController < ApplicationController
     books = books.sort_by(&:title)
 
     return books unless params[:sort] == 'desc'
+
     books.reverse
   end
 end

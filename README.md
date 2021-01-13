@@ -1,4 +1,4 @@
-# BookSearch :books:
+<img src="public/booksearch.png" style="width: 100%" /><br />
 
 Aplicação web desenvolvida em Ruby on Rails que permite aos usuários visualizar uma lista de livros e realizar buscas.
 
@@ -50,7 +50,7 @@ Rodar os testes:
 $ rspec
 ```
 
-> :exclamation: A aplicação estará disponível em http://localhost:3000 :exclamation:
+> :exclamation: A aplicação estará disponível em http://localhost:3000
 
 ## Banco de dados :floppy_disk:
 
@@ -62,3 +62,13 @@ $ rspec
 
 > **email**: admin0@booksearch.net | admin1@booksearch.net<br>
 > **senha**: abc123
+
+## Funcionamento :mag:
+
+:bookmark: Um visitante pode visualizar a lista de livros e realizar busca e ordenação:
+<center><img src="public/homepage.png" style="width: 80%" /></center><br />
+
+
+:bookmark: Um usuário autenticado (admin) tem acesso a um painel onde pode criar, editar e remover livros:
+<center><img src="public/dashboard.png" style="width: 80%" /></center><br />
+

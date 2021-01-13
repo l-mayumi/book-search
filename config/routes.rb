@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :books
+  resources :books, except: :show
 
   root 'books#index'
   get 'dashboard', to: 'books#dashboard'
