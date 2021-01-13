@@ -11,7 +11,7 @@ RSpec.describe 'Searching for a book', type: :request do
   end
 
   it 'by title' do
-    get '/search', params: { q: 'Hamlet', filter: 'text' }
+    get '/search', params: { q: 'Hamlet', filter: 'text', sort: 'asc' }
 
     result_list = JSON.parse(response.body, symbolize_names: true).pluck(:title)
 
@@ -21,7 +21,7 @@ RSpec.describe 'Searching for a book', type: :request do
   end
 
   it 'by description' do
-    get '/search', params: { q: 'avenge', filter: 'text' }
+    get '/search', params: { q: 'avenge', filter: 'text', sort: 'asc' }
 
     result_list = JSON.parse(response.body, symbolize_names: true).pluck(:title)
 
@@ -31,12 +31,30 @@ RSpec.describe 'Searching for a book', type: :request do
   end
 
   it 'by author' do
-    get '/search', params: { q: 'William', filter: 'author' }
+    get '/search', params: { q: 'William', filter: 'author', sort: 'asc' }
 
     result_list = JSON.parse(response.body, symbolize_names: true).pluck(:title)
 
     expect(result_list).to include('Hamlet')
     expect(result_list).not_to include('Alice in Wonderland')
+    expect(response).to have_http_status(:ok)
+  end
+
+  it 'in alphabetical order' do
+    get '/search', params: { q: 'a', filter: 'text', sort: 'asc' }
+
+    result_list = JSON.parse(response.body, symbolize_names: true).pluck(:title)
+
+    expect(result_list).to eq(['Alice in Wonderland', 'Hamlet'])
+    expect(response).to have_http_status(:ok)
+  end
+
+  it 'in reverse alphabetical order' do
+    get '/search', params: { q: 'a', filter: 'text', sort: 'desc' }
+
+    result_list = JSON.parse(response.body, symbolize_names: true).pluck(:title)
+
+    expect(result_list).to eq(['Hamlet', 'Alice in Wonderland'])
     expect(response).to have_http_status(:ok)
   end
 end
