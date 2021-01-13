@@ -1,10 +1,31 @@
-<%= link_to 'Register new book', new_book_path %>
+<div class="row valign-wrapper">
+  <div class="col s6">
+    <h3>Admin panel</h3>
+  </div>
+  <div class="col s6 right-align">
+    <a href="<%= new_book_path %>" class="btn-large">
+      <i class="material-icons left">add_box</i>Register new book
+    </a>
+  </div>
+</div>
 
-<% @books.each do |book| %>
-  <h3><%= book.title %></h3>
-  <%= link_to 'Edit', edit_book_path(book) %> | <%= link_to 'Remove', remove_book_path(book) %>
-  <ul>
-    <li><b>Description:</b> <%=book.description %></li>
-    <li><b>Author name:</b> <%= book.author_name %></li>
-  </ul>
-<% end %>
+<ul class="collection">
+  <% @books.each do |book| %>
+    <li class="collection-item avatar">
+      <%= book.image ? image_tag(book.image, class: 'circle') : '' %>
+      <div class="row valign-wrapper">
+        <div class="col s6">
+          <p><h6 class="title pink-text text-accent-3"><%= book.title %></h6></p>
+          <p>
+            <b>Author:</b> <%= book.author_name %><br>
+            <b>Description:</b> <%=book.description %>
+          </p>
+        </div>
+        <div class="col s6 right-align">
+          <%= link_to 'Edit', edit_book_path(book), class: 'btn teal lighten-2' %>
+          <%= link_to 'Remove', remove_book_path(book), class: 'btn red accent-3' %>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>

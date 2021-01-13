@@ -43,7 +43,7 @@ class BooksController < ApplicationController
     key = params[:q]
     books = filter_by_author? ? Book.find_author(key) : Book.find_text(key)
 
-    render json: books.sort_by(&:title)
+    render json: sort_alphabetical(books)
   end
 
   private
@@ -62,5 +62,12 @@ class BooksController < ApplicationController
 
   def filter_by_author?
     params[:filter] == 'author'
+  end
+
+  def sort_alphabetical(books)
+    books = books.sort_by(&:title)
+
+    return books unless params[:sort] == 'desc'
+    books.reverse
   end
 end

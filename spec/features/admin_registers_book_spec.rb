@@ -4,7 +4,7 @@ feature 'Admin registers book' do
   before do
     User.create(email: 'user@email.com', password: 'a1b2c3')
     visit root_path
-    click_on 'Sign in'
+    click_on 'Sign in', match: :first
 
     fill_in 'Email', with: 'user@email.com'
     fill_in 'Password', with: 'a1b2c3'
@@ -12,7 +12,7 @@ feature 'Admin registers book' do
   end
 
   scenario 'successfully' do
-    click_on 'Dashboard'
+    click_on 'Dashboard', match: :first
     click_on 'Register new book'
 
     fill_in 'Title', with: 'New book title'
@@ -20,11 +20,11 @@ feature 'Admin registers book' do
     fill_in 'Description', with: 'Mysterious new book'
     click_on 'Save'
 
-    expect(page).to have_css('h3', text: 'New book title')
+    expect(page).to have_css('h6', text: 'New book title')
   end
 
   scenario 'but does not fill in all obligatory fields' do
-    click_on 'Dashboard'
+    click_on 'Dashboard', match: :first
     click_on 'Register new book'
 
     fill_in 'Title', with: 'In a hurry'

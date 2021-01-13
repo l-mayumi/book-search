@@ -1,40 +1,81 @@
+
 <form id="search-form">
-  <label for="key">Search</label>
-  <input type="text" id="key" name="key">
-
-  <input type="radio" id="text" name="filter" value="text" checked="checked" />
-  <label for="text">Title/Description</label>
-  <input type="radio" id="author" name="filter" value="author" />
-  <label for="author">Author</label>
-
-  <input type="submit" value="Go" onclick="search()">
+  <div class="row">
+    <div class="input-field col s12 xl9">
+      <input type="text" id="key" name="key">
+      <label for="key" class="active">Search</label>
+    </div>
+    <div class="col s9 xl2">
+      <label>
+        <input name="filter" id="text" value="text" type="radio" checked />
+        <span>Title/Description</span>
+      </label>
+      <label>
+        <input name="filter" id="author" value="author" type="radio" />
+        <span>Author</span>
+      </label>
+    </div>
+    <div class="col s3 xl1 right">
+      <input type="submit" value="Go" onclick="search()" class="btn-large pink accent-2">
+    </div>
+  </div>
+  <div class="input-field">
+    <p>Sort by:
+    <label>
+      <input name="sort" type="radio" id="asc" value="asc" onclick="order('crescent')" checked>
+      <span>A-Z</span>
+    </label>
+    <label>
+      <input name="sort" type="radio" id="desc" value="desc" onclick="order('decrescent')">
+      <span>Z-A</span></p>
+    </label>
+  </div>
 </form>
-
 
 <script>
   function search() {
     const form = new FormData(document.getElementById('search-form'));
     let key = form.get('key');
     let filter = form.get('filter');
+    let sort = form.get('sort');
 
-    fetch(`/search?q=${key}&filter=${filter}`)
+    fetch(`/search?q=${key}&filter=${filter}&sort=${sort}`)
       .then(function(response) { return response.json() })
       .then(function(data) {
         let searchResults = ''
         data.forEach(function(book) {
           searchResults = searchResults.concat(`
-            <div id="${book.title}" class="book-item">
-              <img src="${book.image}" class="thumb" />
-              <h3>${book.title}</h3>
-              <ul>
-                <li><b>Description:</b> ${book.description}</li>
-                <li><b>Author name:</b> ${book.author_name}</li>
-              </ul>
+            <div class="col s12 m6 book-item" id="${book.title}">
+              <div class="collection card white">
+                <div class="card-content collection-item avatar">
+                  <img src="${book.image}" class="circle" />
+                  <span class="card-title">${book.title}</span>
+                  <p><i>${book.author_name}</i></p>
+                  <p><b>Description:</b> ${book.description}</p>
+                </div>
+              </div>
             </div>
           `)
         })
         document.getElementById('book-list').innerHTML = searchResults;
       })
     event.preventDefault()
+  }
+
+  function sort_list(books, mode) {
+    return Array.from(books).sort(function(a, b) {
+      if (mode == 'crescent') { return (a.id > b.id ? 1 : -1); }
+      return (a.id < b.id ? 1: -1);
+    });
+  };
+
+  function order(mode) {
+    let books = document.getElementsByClassName('book-item');
+    const bookList = document.getElementById('book-list');
+
+    books = sort_list(books, mode);
+
+    bookList.innerHTML = ''
+    books.forEach(function(book) { bookList.appendChild(book) });
   }
 </script>

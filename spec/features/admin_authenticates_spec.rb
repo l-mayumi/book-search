@@ -7,7 +7,7 @@ feature 'Admin visits homepage and signs in' do
 
   scenario 'successfully' do
     visit root_path
-    click_on 'Sign in'
+    click_on 'Sign in', match: :first
 
     fill_in 'Email', with: 'user@email.com'
     fill_in 'Password', with: 'a1b2c3'
@@ -18,7 +18,7 @@ feature 'Admin visits homepage and signs in' do
 
   scenario 'but the password is not valid' do
     visit root_path
-    click_on 'Sign in'
+    click_on 'Sign in', match: :first
 
     fill_in 'Email', with: 'user@email.com'
     fill_in 'Password', with: 'password'
@@ -29,12 +29,12 @@ feature 'Admin visits homepage and signs in' do
 
   scenario 'and logs out' do
     visit root_path
-    click_on 'Sign in'
+    click_on 'Sign in', match: :first
 
     fill_in 'Email', with: 'user@email.com'
     fill_in 'Password', with: 'a1b2c3'
     click_on 'Log in'
-    click_on 'Log out'
+    click_on 'Log out', match: :first
 
     expect(page).to have_css('a', text: 'Sign in')
   end

@@ -4,7 +4,7 @@ feature 'Visitor visits homepage' do
   scenario 'successfully' do
     visit root_path
 
-    expect(page).to have_css('h1', text: 'BookSearch')
+    expect(page).to have_css('h3', text: 'Welcome to BookSearch!')
     expect(page).to have_css('a', text: 'Sign in')
   end
 

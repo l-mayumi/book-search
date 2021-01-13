@@ -1,42 +1,23 @@
-<h1>BookSearch</h1>
-<p>Here you can see a list of books</p>
+<h3>Welcome to BookSearch!</h3>
+<p>Here's a list of our current selection of books.</p>
 
 <%= render 'search' %>
 
-<a onclick="order('crescent')">A-Z</a> | <a onclick="order('decrescent')">Z-A</a>
-
-<div id="book-list">
+<div class="row" id="book-list">
   <% @books.each do |book| %>
-    <div id="<%= book.title %>" class="book-item">
-      <% if book.image %>
-        <img src="<%= book.image %>" class="thumb" />
-      <% else %>
-        <%= image_tag('book.png', class: 'thumb') %>
-      <% end %>
-      <h3><%= book.title %></h3>
-      <ul>
-        <li><b>Description:</b> <%= book.description %></li>
-        <li><b>Author name:</b> <%= book.author_name %></li>
-      </ul>
+    <div class="col s12 m6 book-item" id="<%= book.title %>">
+      <div class="collection card white">
+        <div class="card-content collection-item avatar">
+          <% if book.image %>
+            <img src="<%= book.image %>" class="circle" />
+          <% else %>
+            <%= image_tag('book.png', class: 'circle') %>
+          <% end %>
+          <span class="card-title pink-text text-accent-3"><%= book.title %></span>
+          <p><i><%= book.author_name %></i></p>
+          <p><b>Description:</b> <%= book.description %></p>
+        </div>
+      </div>
     </div>
   <% end %>
 </div>
-
-<script>
-  function sort_list(books, mode) {
-    return Array.from(books).sort(function(a, b) {
-      if (mode == 'crescent') { return (a.id > b.id ? 1 : -1); }
-      return (a.id < b.id ? 1: -1);
-    });
-  };
-
-  function order(mode) {
-    let books = document.getElementsByClassName('book-item');
-    const bookList = document.getElementById('book-list');
-
-    books = sort_list(books, mode);
-
-    bookList.innerHTML = ''
-    books.forEach(function(book) { bookList.appendChild(book) });
-  }
-</script>

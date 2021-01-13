@@ -1,6 +1,11 @@
-<p>Remove "<%= @book.title %>"?</p>
-<ul>
-  <li><b>Description:</b> <%=@book.description %></li>
-  <li><b>Author name:</b> <%= @book.author_name %></li>
-</ul>
-<%= link_to 'Yes', book_path(@book), method: 'delete' %> | <%= link_to 'Cancel', dashboard_path %>
+<h3>Remove <i>"<%= @book.title %>"</i>?</h3>
+<div class="center-align">
+  <%= image_tag((@book.image ? @book.image : ''), class: 'circle') %>
+  <ul>
+    <li><b>Description:</b> <%=@book.description %></li>
+    <li><b>Author name:</b> <%= @book.author_name %></li>
+  </ul>
+  <%= link_to 'Yes', book_path(@book), method: 'delete', class: 'btn red accent-3' %>
+  &nbsp;&nbsp;&nbsp;
+  <%= link_to 'Cancel', dashboard_path, class: 'btn grey' %>
+</div>
